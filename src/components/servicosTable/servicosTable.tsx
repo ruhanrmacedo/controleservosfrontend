@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getServicos from '../api/servicos';
+import getServicos from '../components/servicos';
 
 export interface Servico {
   codigoServico: number;
