@@ -1,49 +1,64 @@
-import { useState } from 'react';
+import React, { useState } from "react";
+import { Servicos } from "./Servicos";
 
 interface ServicosFormProps {
-  onSubmit: (data: ServicosPros) => void;
+  onSubmit: (servicos: Servicos) => void;
 }
 
-export function ServicosForm({ onSubmit }: ServicosFormProps) {
-  const [descricao, setDescricao] = useState('');
-  const [valorClaro, setValorClaro] = useState(0);
-  const [valorTecnico, setValorTecnico] = useState(0);
+export const ServicosForm = ({ onSubmit }: ServicosFormProps) => {
+  const [codigoServico, setCodigoServico] = useState<number | undefined>();
+  const [descricao, setDescricao] = useState<string | undefined>();
+  const [valorClaro, setValorClaro] = useState<number | undefined>();
+  const [valorTecnico, setValorTecnico] = useState<number | undefined>();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit({ descricao, valorClaro, valorTecnico });
-  }
 
+    const servicos: Servicos = {
+      codigoServico,
+      descricao,
+      valorClaro,
+      valorTecnico,
+    };
+
+    onSubmit(servicos);
+  };
+  
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="descricao">Descrição:</label>
+      <label>
+        Código do serviço:
+        <input
+          type="number"
+          value={codigoServico || ""}
+          onChange={(e) => setCodigoServico(parseInt(e.target.value))}
+        />
+      </label>
+      <label>
+        Descrição:
         <input
           type="text"
-          id="descricao"
-          value={descricao}
+          value={descricao || ""}
           onChange={(event) => setDescricao(event.target.value)}
         />
-      </div>
-      <div>
-        <label htmlFor="valor-claro">Valor Claro:</label>
+      </label>
+      <label>
+        Valor Claro:
         <input
           type="number"
-          id="valor-claro"
-          value={valorClaro}
-          onChange={(event) => setValorClaro(Number(event.target.value))}
+          value={valorClaro || ""}
+          onChange={(e) => setValorClaro(parseInt(e.target.value))}
         />
-      </div>
-      <div>
-        <label htmlFor="valor-tecnico">Valor Técnico:</label>
+      </label>
+      <label>
+        Valor Técnico:
         <input
           type="number"
-          id="valor-tecnico"
-          value={valorTecnico}
-          onChange={(event) => setValorTecnico(Number(event.target.value))}
+          value={valorTecnico || ""}
+          onChange={(e) => setValorTecnico(parseInt(e.target.value))}
         />
-      </div>
-      <button type="submit">Salvar</button>
+      </label>
+      <button type="submit">Enviar</button>
     </form>
   );
-}
+};

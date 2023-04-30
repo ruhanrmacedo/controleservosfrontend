@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import getServicos from '../components/servicos';
+import { getServicos } from '../servicos/servicos';
 
-export interface Servico {
+export interface Servicos {
   codigoServico: number;
   descricao: string;
   valorClaro: number;
@@ -9,7 +9,7 @@ export interface Servico {
 }
 
 function ServicosTable() {
-  const [servicos, setServicos] = useState<Servico[]>([]);
+  const [servicos, setServicos] = useState<Servicos[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,12 +30,12 @@ function ServicosTable() {
         </tr>
       </thead>
       <tbody>
-        {servicos.map((servico) => (
-          <tr key={servico.codigoServico}>
-            <td>{servico.codigoServico}</td>
-            <td>{servico.descricao}</td>
-            <td>{servico.valorClaro}</td>
-            <td>{servico.valorTecnico}</td>
+        {servicos.map((Servicos) => (
+          <tr key={Servicos.codigoServico}>
+            <td>{Servicos.codigoServico}</td>
+            <td>{Servicos.descricao}</td>
+            <td>{Servicos.valorClaro}</td>
+            <td>{Servicos.valorTecnico}</td>
           </tr>
         ))}
       </tbody>
